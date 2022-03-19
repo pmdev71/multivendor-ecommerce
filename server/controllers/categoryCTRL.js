@@ -28,6 +28,20 @@ const categoryCTRL = {
             return res.status(500).json({ msg: error.message });
         }
     },
+    updateCategory: async (req, res) => {
+        try {
+            const { name } = req.body;
+            const existingCategory = await Category.findOne({ name });
+            if (existingCategory) {
+                return res.status(400).json({ msg: "This Category Already Exists" });
+            }
+            await Category.findOneAndUpdate({ _id: req.params.id }, { name });
+            res.json({ msg: "Category Updated" });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
+
 };
 
 module.exports = categoryCTRL;
