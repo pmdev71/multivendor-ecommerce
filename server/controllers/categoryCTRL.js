@@ -41,6 +41,14 @@ const categoryCTRL = {
             return res.status(500).json({ msg: error.message });
         }
     },
+    deleteCategory: async (req, res) => {
+        try {
+            await Category.findByIdAndDelete(req.params.id);
+            res.json({ msg: "Category Deleted." });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
 
 };
 
